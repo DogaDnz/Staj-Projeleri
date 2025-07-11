@@ -1,26 +1,24 @@
-# MersinLiman - Çalışan Yönetim Sistemi
+# MersinLiman - Ã‡alÄ±ÅŸan YÃ¶netim Sistemi
 
-Bu proje, Mersin Limanı için temel bir Çalışan Yönetim Sistemi arayüzü sunar. Kullanıcılar, mevcut çalışanları görüntüleyebilir, yeni çalışan ekleyebilir, güncelleme ve silme işlemlerini gerçekleştirebilir.
+Bu proje, Mersin LimanÄ± iÃ§in temel bir Ã‡alÄ±ÅŸan YÃ¶netim Sistemi arayÃ¼zÃ¼ sunar. KullanÄ±cÄ±lar, mevcut Ã§alÄ±ÅŸanlarÄ± gÃ¶rÃ¼ntÃ¼leyebilir, yeni Ã§alÄ±ÅŸan ekleyebilir, gÃ¼ncelleme ve silme iÅŸlemlerini gerÃ§ekleÅŸtirebilir.
 
 ##  Teknolojiler
 
 - HTML / CSS / JavaScript
 - Bootstrap 5.3.2
 - ASP.NET Core Web API (Backend)
-- JSON API ile çalışan CRUD işlemleri
+- JSON API ile Ã§alÄ±ÅŸan CRUD iÅŸlemleri
 
-## Özellikler
+## Ã–zellikler
 
-- Şık ve modern kullanıcı arayüzü
-- Responsive tasarım (mobil uyumlu)
-- Navbar, background image ve opak içerik kutusu ile kullanıcı dostu yapı
-- Anasayfa, İletişim ve Kariyer linkleri
-- Arkaplan görseliyle desteklenen şeffaf içerik alanı
-- Yeni çalışan ekleme, listeleme, güncelleme ve silme işlemleri
+- ÅÄ±k ve modern kullanÄ±cÄ± arayÃ¼zÃ¼
+- Responsive tasarÄ±m (mobil uyumlu)
+- Navbar, background image ve opak iÃ§erik kutusu ile kullanÄ±cÄ± dostu yapÄ±
+- Anasayfa, Ä°letiÅŸim ve Kariyer linkleri
+- Arkaplan gÃ¶rseliyle desteklenen ÅŸeffaf iÃ§erik alanÄ±
+- Yeni Ã§alÄ±ÅŸan ekleme, listeleme, gÃ¼ncelleme ve silme iÅŸlemleri
 
-## Ekran Görüntüsü
 
-![UI Screenshot](./images/screenshot.png) 
 
 
 
