@@ -1,0 +1,29 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\90530\\source\\repos\\MersinLiman\\wwwroot\\images\\yonetim-header.jpg",
+      "PackagePath": "staticwebassets\\images\\yonetim-header.jpg"
+    },
+    {
+      "Id": "C:\\Users\\90530\\source\\repos\\MersinLiman\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.MersinLiman.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.MersinLiman.props",
+      "PackagePath": "build\\MersinLiman.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.MersinLiman.props",
+      "PackagePath": "buildMultiTargeting\\MersinLiman.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.MersinLiman.props",
+      "PackagePath": "buildTransitive\\MersinLiman.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

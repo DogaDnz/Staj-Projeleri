@@ -1,0 +1,6 @@
+@MersinLiman_HostAddress = http://localhost:5299
+
+GET {{MersinLiman_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

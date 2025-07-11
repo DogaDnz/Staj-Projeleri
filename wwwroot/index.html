@@ -1,0 +1,243 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        html, body {
+            height: 60%;
+            margin: 0;
+            padding: 0;
+            background-image: url('/images/back.png');
+            background-size: cover; 
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+        }
+
+        /* Arkaplan üstünde opak kutu */
+        .hero-content {
+            background-color: rgba(255, 255, 255, 0.55);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #fff !important; /* Arka plan beyaz */
+            padding-top: 20px;
+            padding-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand img {
+            height: 60px; /* Logo daha büyük */
+        }
+
+        .navbar-nav .nav-link {
+            color: #888;
+            font-size: 1.2rem; /* Menü yazıları büyük */
+            margin-right: 15px;
+        }
+
+            .navbar-nav .nav-link:hover {
+                color: #555;
+            }
+
+        th {
+            color: #576165;
+            padding: 8px;
+            word-wrap: break-word;
+        }
+
+        h2 {
+            text-align: center;
+            color: #576165;
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        button {
+            margin-top: 10px;
+        }
+
+        .editbutton {
+            background-color: #1e7ba1;
+            color: white;
+            border: 1px solid #cce5ff;
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin-right: 5px;
+        }
+
+        .deletebutton {
+            background-color: #3c7f9b;
+            color: white;
+            border: 1px solid #cce5ff;
+            padding: 4px 10px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg  shadow-sm px-3">
+        <a class="navbar-brand" href="#"><img src="/images/mpi-logo.png" alt="Logo" height="50"></a>
+        <div class="ms-auto">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="#">Anasayfa</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">İletişim</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Kariyer</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- İçerik Kutusu -->
+    <div class="container my-5 hero-content">
+        <div class="row">
+            <!-- Tablo -->
+            <div class="col-md-6">
+                <h2>Çalışanlar Listesi</h2>
+                <table id="employeeTable" class="table table-striped mt-3">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Surname</th>
+                            <th>Role</th>
+                            <th>Wage</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <!-- Form -->
+            <div class="col-md-6">
+                <h2>Yeni Çalışan Ekle</h2>
+                <input type="text" id="name" placeholder="Name" class="form-control">
+                <input type="text" id="surname" placeholder="Surname" class="form-control">
+                <input type="text" id="role" placeholder="Role" class="form-control">
+                <input type="number" id="wage" placeholder="Wage" class="form-control">
+                <button onclick="addEmployee()" class="editbutton">Ekle</button>
+                </div>
+            </div>
+
+        <!-- Mesaj kutusu -->
+        <div id="message" class="alert d-none mt-3" role="alert"></div>
+    </div>
+
+    <script>
+        const apiUrl = "https://localhost:7089/api/employees";
+
+        async function loadEmployees() {
+            const res = await fetch(apiUrl);
+            const employees = await res.json();
+            const tableBody = document.querySelector("#employeeTable tbody");
+            tableBody.innerHTML = "";
+            employees.forEach(e => {
+                const row = `<tr>
+                            <td>${e.id}</td>
+                            <td>${e.name}</td>
+                            <td>${e.surname}</td>
+                            <td>${e.role}</td>
+                            <td>${e.wage}</td>
+                            <td>
+                                <button class="btn editbutton" onclick="editEmployee(${e.id}, '${e.name}', '${e.surname}', '${e.role}', ${e.wage})">Güncelle</button>
+                                <button class="btn deletebutton" onclick="deleteEmployee(${e.id})">Sil</button>
+                            </td>
+                        </tr>`;
+                tableBody.innerHTML += row;
+            });
+        }
+
+        function showMessage(text, type = "success") {
+            const msgBox = document.getElementById("message");
+            msgBox.className = `alert alert-${type}`;
+            msgBox.textContent = text;
+            msgBox.classList.remove("d-none");
+            setTimeout(() => msgBox.classList.add("d-none"), 3000);
+        }
+
+        async function addEmployee() {
+            const name = document.getElementById("name").value;
+            const surname = document.getElementById("surname").value;
+            const role = document.getElementById("role").value;
+            const wage = parseInt(document.getElementById("wage").value);
+            const res = await fetch(apiUrl, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, surname, role, wage })
+            });
+            if (res.ok) {
+                showMessage("Çalışan başarıyla eklendi.");
+                await loadEmployees();
+                document.getElementById("name").value = "";
+                document.getElementById("surname").value = "";
+                document.getElementById("role").value = "";
+                document.getElementById("wage").value = "";
+            } else {
+                const err = await res.text();
+                showMessage("Ekleme hatası: " + err, "danger");
+            }
+        }
+
+        async function deleteEmployee(id) {
+            if (!confirm("Silmek istediğinize emin misiniz?")) return;
+            const res = await fetch(`${apiUrl}/${id}`, { method: "DELETE" });
+            if (res.ok) {
+                showMessage("Silindi.");
+                await loadEmployees();
+            } else {
+                const err = await res.text();
+                showMessage("Silme hatası: " + err, "danger");
+            }
+        }
+
+        let editingId = null;
+        function editEmployee(id, name, surname, role, wage) {
+            document.getElementById("name").value = name;
+            document.getElementById("surname").value = surname;
+            document.getElementById("role").value = role;
+            document.getElementById("wage").value = wage;
+            editingId = id;
+            document.querySelector("button[onclick='addEmployee()']").textContent = "Güncelle";
+            document.querySelector("button[onclick='addEmployee()']").setAttribute("onclick", "updateEmployee()");
+        }
+
+        async function updateEmployee() {
+            const name = document.getElementById("name").value;
+            const surname = document.getElementById("surname").value;
+            const role = document.getElementById("role").value;
+            const wage = parseInt(document.getElementById("wage").value);
+            const res = await fetch(`${apiUrl}/${editingId}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id: editingId, name, surname, role, wage })
+            });
+            if (res.ok) {
+                showMessage("Güncellendi.");
+                editingId = null;
+                await loadEmployees();
+                document.getElementById("name").value = "";
+                document.getElementById("surname").value = "";
+                document.getElementById("role").value = "";
+                document.getElementById("wage").value = "";
+                const addBtn = document.querySelector("button[onclick='updateEmployee()']");
+                addBtn.textContent = "Add";
+                addBtn.setAttribute("onclick", "addEmployee()");
+            } else {
+                const err = await res.text();
+                showMessage("Güncelleme hatası: " + err, "danger");
+            }
+        }
+
+        loadEmployees();
+    </script>
+</body>
+</html>
